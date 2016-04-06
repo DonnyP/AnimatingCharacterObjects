@@ -53,6 +53,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="gameScreen.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="gameScreen.Designer.cs">
+      <DependentUpon>gameScreen.cs</DependentUpon>
+    </Compile>
     <Compile Include="image.cs" />
     <Compile Include="mainScreen.cs">
       <SubType>UserControl</SubType>
@@ -67,6 +73,9 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="gameScreen.resx">
+      <DependentUpon>gameScreen.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="mainScreen.resx">
       <DependentUpon>mainScreen.cs</DependentUpon>
     </EmbeddedResource>
@@ -78,6 +87,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -91,6 +101,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RedGuyDown.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RedGuyLeft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RedGuyRight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RedGuyUp.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

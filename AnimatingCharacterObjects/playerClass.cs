@@ -19,7 +19,7 @@ namespace AnimatingCharacterObjects
             speed = _speed;
             player = _player;
         }
-        public void move(character pc, string direction)
+        public void move(playerClass pc, string direction)
         {
             if (direction == "left")
             {
