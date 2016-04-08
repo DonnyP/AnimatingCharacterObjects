@@ -10,9 +10,6 @@ namespace AnimatingCharacterObjects
     class playerClass
     {
         public int x, y, size, speed;
-        public int leftStartX;
-        public int playerSize;
-        public int playerSpeed;
         public Image[] playerImages;
 
         public playerClass(int _x, int _y, int _size, int _speed, Image[] _playerImages)

@@ -15,10 +15,12 @@ namespace AnimatingCharacterObjects
     {
         #region Variables | List
         Boolean leftArrowDown, downArrowDown, rightArrowDown, upArrowDown, bDown, nDown, mDown, spaceDown;
-        List<monsterClass> ghost = new List<monsterClass>();
-        playerClass player1;
+        List<monsterClass> monster  = new List<monsterClass>();
+        List<bulletClass> ammo = new List<bulletClass>();
+        playerClass pc;
         monsterClass mc;
-        List<bulletClass> bullet = new List<bulletClass>();
+        bulletClass bc;
+        
 
         int leftStartX = 100;
         int playerSize = 30;
@@ -31,7 +33,6 @@ namespace AnimatingCharacterObjects
         Image[] playerImages = new Image[] {Properties.Resources.RedGuyDown, Properties.Resources.RedGuyUp,
             Properties.Resources.RedGuyLeft,Properties.Resources.RedGuyRight};
 
-
         #endregion 
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -39,31 +40,87 @@ namespace AnimatingCharacterObjects
             if (upArrowDown == true)
             {
                 direction = 1;
-                player1.move(player1, "up");
+                pc.move(pc, "up");
             }
             else if (downArrowDown == true)
             {
                 direction = 0;
-                player1.move(player1, "down");
+                pc.move(pc, "down");
             }
             else if (leftArrowDown == true)
             {
                 direction = 2;
-                player1.move(player1, "left");
+                pc.move(pc, "left");
             }
             else if (rightArrowDown == true)
             {
                 direction = 3;
-                player1.move(player1, "right");
+                pc.move(pc, "right");
             }
             Refresh();
+            #region Monster following player
+
+            //Monster following player
+            if (pc.x - mc.x < 0)
+            {
+                mc.move(mc, "left");
+            }
+            else if (pc.x - mc.x > 0)
+            {
+                mc.move(mc, "right");
+            }
+            if (pc.y - mc.y < 0)
+            {
+                mc.move(mc, "up");
+            }
+            else if (pc.y - mc.y > 0)
+            {
+                mc.move(mc, "down");
+            }
+            Refresh();
+            #endregion
+
+            foreach (bulletClass bc in ammo)
+            {
+                bc.move(bc);
+
+                if (bc.x > this.Width || bc.x < 0 || bc.y > this.Height || bc.y < 0)
+                {
+                    ammo.Remove(bc);
+                    break;
+                }
+            }
+            if (spaceDown == true && ammo.Count() < 4)
+            {
+               // bulletClass bc = new bulletClass(pc.x + (pc.size / 2), pc.y + (pc.size / 2), 2, 10, pc.direction);
+                ammo.Add(bc);
+            }
+
         }
         public gameScreen()
         {
             InitializeComponent();
-            player1 = new playerClass(leftStartX, 30, playerSize, playerSpeed, playerImages);
+            pc = new playerClass(leftStartX, 30, playerSize, playerSpeed, playerImages);
         }
-#region Buttons
+        private void gameScreen_Load(object sender, EventArgs e)
+        {
+             mc = new monsterClass(leftStartX, 0, playerSize, 4, monsterImages);
+            monster.Add(mc);
+            timer1.Enabled = true;
+            timer1.Start();
+            this.Focus();
+        }
+        private void gameScreen_Paint(object sender, PaintEventArgs e)
+        {
+            SolidBrush bulletbrush = new SolidBrush(Color.DarkOrange);
+            foreach (bulletClass bc in ammo)
+            {
+                e.Graphics.FillRectangle(bulletbrush, bc.x, bc.y, bc.size, bc.size);
+            }
+            e.Graphics.DrawImage(pc.playerImages[direction], pc.x, pc.y, pc.size, pc.size);
+            e.Graphics.DrawImage(mc.monsterImages[direction], mc.x, mc.y, mc.size, mc.size);
+        }
+        #region Buttons
         private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
             //player 1 button presses
@@ -130,19 +187,6 @@ namespace AnimatingCharacterObjects
                     break;
             }
         }
-#endregion
-        private void gameScreen_Load(object sender, EventArgs e)
-        {
-             mc = new monsterClass(leftStartX, 0, playerSize, playerSpeed, monsterImages);
-            ghost.Add(mc);
-            timer1.Enabled = true;
-            timer1.Start();
-            this.Focus();
-        }
-        private void gameScreen_Paint(object sender, PaintEventArgs e)
-        {
-            e.Graphics.DrawImage(player1.playerImages[direction], player1.x, player1.y, player1.size, player1.size);
-            e.Graphics.DrawImage(mc.monsterImages[direction], mc.x, mc.y, mc.size, mc.size);
-        }
+        #endregion
     }
 }
