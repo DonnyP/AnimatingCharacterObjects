@@ -10,29 +10,18 @@ namespace AnimatingCharacterObjects
     class playerClass
     {
         public int x, y, size, speed;
-        image[] player = new image[4];
         public int leftStartX;
-        public int v;
         public int playerSize;
         public int playerSpeed;
         public Image[] playerImages;
 
-        public playerClass(int _x, int _y, int _size, int _speed, image[] _player)
+        public playerClass(int _x, int _y, int _size, int _speed, Image[] _playerImages)
         {
             x = _x;
             y = _y;
             size = _size;
             speed = _speed;
-            player = _player;
-        }
-
-        public playerClass(int leftStartX, int v, int playerSize, int playerSpeed, Image[] playerImages)
-        {
-            this.leftStartX = leftStartX;
-            this.v = v;
-            this.playerSize = playerSize;
-            this.playerSpeed = playerSpeed;
-            this.playerImages = playerImages;
+            playerImages = _playerImages;
         }
 
         public void move(playerClass pc, string direction)

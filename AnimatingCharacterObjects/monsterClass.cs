@@ -10,15 +10,15 @@ namespace AnimatingCharacterObjects
     class monsterClass
     {
         public int x, y, size, speed;
-        Image[] monster = new Image[4];
+        public Image[] monsterImages;
 
-        public monsterClass(int _x, int _y, int _size, int _speed, Image[] _monster)
+        public monsterClass(int _x, int _y, int _size, int _speed, Image[] _monsterImages)
         {
             x = _x;
             y = _y;
             size = _size;
             speed = _speed;
-            monster = _monster;
+            monsterImages = _monsterImages;
         }
         public void move(monsterClass mc, string direction)
         {

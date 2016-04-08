@@ -27,6 +27,7 @@ namespace AnimatingCharacterObjects
         {
             Form f = this.FindForm();
             f.Controls.Remove(this);
+
             gameScreen gs = new gameScreen();
             f.Controls.Add(gs);
             //gs.Location = new Point((this.Width - gs.Width) / 2, (this.Height - gs.Height) / 2);
