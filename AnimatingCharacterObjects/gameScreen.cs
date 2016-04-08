@@ -134,7 +134,6 @@ namespace AnimatingCharacterObjects
         private void gameScreen_Load(object sender, EventArgs e)
         {
              mc = new monsterClass(leftStartX, 0, playerSize, playerSpeed, monsterImages);
-
             ghost.Add(mc);
             timer1.Enabled = true;
             timer1.Start();
