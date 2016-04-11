@@ -14,19 +14,19 @@ namespace AnimatingCharacterObjects
     public partial class gameScreen : UserControl
     {
         #region Variables | List
-        Boolean leftArrowDown, downArrowDown, rightArrowDown, upArrowDown, bDown, nDown, mDown, spaceDown;
+        Boolean leftArrowDown, downArrowDown, rightArrowDown, upArrowDown, spaceDown;
+        //List
         List<monsterClass> monster  = new List<monsterClass>();
         List<bulletClass> ammo = new List<bulletClass>();
         playerClass pc;
         monsterClass mc;
         bulletClass bc;
-        
-
+        //Variables
         int leftStartX = 100;
         int playerSize = 30;
         int playerSpeed = 7;
         int direction = 0;
-
+        //Images
         Image[] monsterImages = new Image[] {Properties.Resources.notdonnyDown, Properties.Resources.notdonnyUp,
             Properties.Resources.notdonnyLeft, Properties.Resources.notdonnyRight};
 
@@ -37,15 +37,16 @@ namespace AnimatingCharacterObjects
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (upArrowDown == true)
-            {
-                direction = 1;
-                pc.move(pc, "up");
-            }
-            else if (downArrowDown == true)
+            #region button
+            if (downArrowDown == true)
             {
                 direction = 0;
                 pc.move(pc, "down");
+            }
+             else if (upArrowDown == true)
+            {
+                direction = 1;
+                pc.move(pc, "up");
             }
             else if (leftArrowDown == true)
             {
@@ -58,6 +59,7 @@ namespace AnimatingCharacterObjects
                 pc.move(pc, "right");
             }
             Refresh();
+            #endregion
             #region Monster following player
 
             //Monster following player
@@ -79,7 +81,7 @@ namespace AnimatingCharacterObjects
             }
             Refresh();
             #endregion
-
+            #region bullet
             foreach (bulletClass bc in ammo)
             {
                 bc.move(bc);
@@ -92,10 +94,23 @@ namespace AnimatingCharacterObjects
             }
             if (spaceDown == true && ammo.Count() < 4)
             {
-               // bulletClass bc = new bulletClass(pc.x + (pc.size / 2), pc.y + (pc.size / 2), 2, 10, pc.direction);
+                bulletClass bc = new bulletClass(pc.x + (pc.size / 2), pc.y + (pc.size / 2), 2, 10, direction);
                 ammo.Add(bc);
             }
-
+            #endregion
+            #region scoreScreen
+            foreach (monsterClass mc in monster)
+            {
+                if (pc.collision(pc, mc) == true)
+                {
+                    Form scoreScreen = this.FindForm();
+                    scoreScreen.Controls.Remove(this);
+                    scoreScreen ss = new scoreScreen();
+                    scoreScreen.Controls.Add(ss);
+                    break;
+                }
+            }
+            #endregion
         }
         public gameScreen()
         {
@@ -104,7 +119,7 @@ namespace AnimatingCharacterObjects
         }
         private void gameScreen_Load(object sender, EventArgs e)
         {
-             mc = new monsterClass(leftStartX, 0, playerSize, 4, monsterImages);
+            mc = new monsterClass(leftStartX, 0, playerSize, 4, monsterImages);
             monster.Add(mc);
             timer1.Enabled = true;
             timer1.Start();
@@ -112,7 +127,7 @@ namespace AnimatingCharacterObjects
         }
         private void gameScreen_Paint(object sender, PaintEventArgs e)
         {
-            SolidBrush bulletbrush = new SolidBrush(Color.DarkOrange);
+            SolidBrush bulletbrush = new SolidBrush(Color.Green);
             foreach (bulletClass bc in ammo)
             {
                 e.Graphics.FillRectangle(bulletbrush, bc.x, bc.y, bc.size, bc.size);
@@ -138,15 +153,6 @@ namespace AnimatingCharacterObjects
                 case Keys.Up:
                     upArrowDown = true;
                     break;
-                case Keys.B:
-                    bDown = true;
-                    break;
-                case Keys.N:
-                    nDown = true;
-                    break;
-                case Keys.M:
-                    mDown = true;
-                    break;
                 case Keys.Space:
                     spaceDown = true;
                     break;
@@ -170,15 +176,6 @@ namespace AnimatingCharacterObjects
                     break;
                 case Keys.Up:
                     upArrowDown = false;
-                    break;
-                case Keys.B:
-                    bDown = false;
-                    break;
-                case Keys.N:
-                    nDown = false;
-                    break;
-                case Keys.M:
-                    mDown = false;
                     break;
                 case Keys.Space:
                     spaceDown = false;

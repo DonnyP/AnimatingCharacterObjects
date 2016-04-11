@@ -70,6 +70,12 @@
     <Compile Include="playerClass.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="scoreScreen.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="scoreScreen.Designer.cs">
+      <DependentUpon>scoreScreen.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -89,6 +95,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="scoreScreen.resx">
+      <DependentUpon>scoreScreen.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

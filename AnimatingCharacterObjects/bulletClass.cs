@@ -9,10 +9,9 @@ namespace AnimatingCharacterObjects
 {
     class bulletClass
     {
-        public int x, y, size, speed;
-        public string direction;
+        public int x, y, size, speed, direction;
         
-        public bulletClass(int _x, int _y, int _size, int _speed, string _direction)
+        public bulletClass(int _x, int _y, int _size, int _speed, int _direction)
         {
             x = _x;
             y = _y;
@@ -22,15 +21,15 @@ namespace AnimatingCharacterObjects
         }
         public void move(bulletClass bc)
         {
-            if (bc.direction == "left")
+            if (bc.direction == 2)
             {
                 bc.x -= bc.speed;
             }
-            else if (bc.direction == "right")
+            else if (bc.direction == 3)
             {
                 bc.x += bc.speed;
             }
-            else if (bc.direction == "up")
+            else if (bc.direction == 1)
             {
                 bc.y -= bc.speed;
             }
